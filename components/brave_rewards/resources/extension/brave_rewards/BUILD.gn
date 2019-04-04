@@ -26,6 +26,7 @@ transpile_web_ui("brave_rewards_panel") {
     "components/app.tsx",
     "components/panel.tsx",
     "constants/rewards_panel_types.ts",
+    "content.ts",
     "img/rewards-on.png",
     "img/rewards-on@2x.png",
     "img/rewards-on@3x.png",
@@ -34,7 +35,8 @@ transpile_web_ui("brave_rewards_panel") {
 
   entry_points = [
     ["brave_rewards_panel", rebase_path("brave_rewards_panel.tsx")],
-    ["brave_rewards_panel_background", rebase_path("background.ts")]
+    ["brave_rewards_panel_background", rebase_path("background.ts")],
+    ["brave_rewards_panel_content", rebase_path("content.ts")]
   ]
 
   resource_name = "brave_rewards_panel"
