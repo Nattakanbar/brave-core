@@ -38,6 +38,30 @@
 #include "brave/components/brave_rewards/browser/extension_rewards_service_observer.h"
 #endif
 
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest,
+  InsufficientNotificationForVerifiedsInsufficientAmount);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest,
+  InsufficientNotificationForVerifiedsSufficientAmount);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, ActivateSettingsModal);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, HandleFlagsSingleArg);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, HandleFlagsMultipleFlags);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, HandleFlagsWrongInput);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, ClaimGrantViaSettingsPage);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, ClaimGrantViaPanel);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, PanelShowsCorrectPublisherData);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, VisitVerifiedPublisher);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, VisitUnverifiedPublisher);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, AutoContribution);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, TipVerifiedPublisher);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, TipUnverifiedPublisher);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest, RecurringTipForVerifiedPublisher);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest,
+    RecurringTipForUnverifiedPublisher);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest,
+    InsufficientNotificationForVerifiedsZeroAmountZeroPublishers);
+FORWARD_DECLARE_TEST(BraveRewardsBrowserTest,
+  InsufficientNotificationForVerifiedsDefaultAmount);
+
 namespace base {
 class OneShotTimer;
 class RepeatingTimer;
@@ -66,6 +90,7 @@ namespace brave_rewards {
 
 class PublisherInfoDatabase;
 class RewardsNotificationServiceImpl;
+class BraveRewardsBrowserTest;
 
 using GetProductionCallback = base::Callback<void(bool)>;
 using GetDebugCallback = base::Callback<void(bool)>;
@@ -221,9 +246,38 @@ class RewardsServiceImpl : public RewardsService,
   // Testing methods
   void SetLedgerEnvForTesting();
   void StartAutoContributeForTest();
+  void CheckInsufficientFundsForTesting();
+  void MaybeShowNotificationAddFundsForTesting(
+      base::OnceCallback<void(bool)> callback);
 
  private:
   FRIEND_TEST_ALL_PREFIXES(RewardsServiceTest, OnWalletProperties);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest,
+      InsufficientNotificationForVerifiedsInsufficientAmount);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest,
+      InsufficientNotificationForVerifiedsSufficientAmount);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, ActivateSettingsModal);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, HandleFlagsSingleArg);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, HandleFlagsMultipleFlags);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, HandleFlagsWrongInput);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest,
+      ClaimGrantViaSettingsPage);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, ClaimGrantViaPanel);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest,
+      PanelShowsCorrectPublisherData);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, VisitVerifiedPublisher);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, VisitUnverifiedPublisher);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, AutoContribution);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, TipVerifiedPublisher);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest, TipUnverifiedPublisher);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest,
+      RecurringTipForVerifiedPublisher);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest,
+      RecurringTipForUnverifiedPublisher);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest,
+      InsufficientNotificationForVerifiedsZeroAmountZeroPublishers);
+  FRIEND_TEST_ALL_PREFIXES(::BraveRewardsBrowserTest,
+      InsufficientNotificationForVerifiedsDefaultAmount);
   friend class ::BraveRewardsBrowserTest;
 
   const base::OneShotEvent& ready() const { return ready_; }

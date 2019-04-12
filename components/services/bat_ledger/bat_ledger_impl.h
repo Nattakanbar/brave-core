@@ -218,6 +218,10 @@ class BatLedgerImpl : public mojom::BatLedger,
     ledger::Result result,
     ledger::PublisherInfoPtr info);
 
+  static void OnHasSufficientBalanceToReconcile(
+    CallbackHolder<HasSufficientBalanceToReconcileCallback>* holder,
+    bool sufficient);
+
   std::unique_ptr<BatLedgerClientMojoProxy> bat_ledger_client_mojo_proxy_;
   std::unique_ptr<ledger::Ledger> ledger_;
 
